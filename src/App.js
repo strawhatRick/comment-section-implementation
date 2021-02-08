@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Comment from './components/Comment';
+import Post from './components/Post';
 
-function App() {
+const postId = 1;
+const authorId = 1001;
+let key = 0;
+
+const App = () => {
+  const [commentList, setCommentList] = useState([]);
+  const updateFunction = (newComment) => {
+    newComment = {...newComment, key: key};
+    key += 1;
+    setCommentList(commentList.concat(newComment));
+    console.log(commentList);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Post />
+      <Comment commentList={commentList} authorId={authorId} postId={postId} update={updateFunction} />
+    </>
   );
 }
 
